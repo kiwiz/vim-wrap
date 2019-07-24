@@ -1,6 +1,6 @@
 " vim-wrap - allow window movement to wrap
 
-if exists("g:loaded_wrap)
+if exists("g:loaded_wrap")
   finish
 endif
 let g:loaded_wrap = 1
