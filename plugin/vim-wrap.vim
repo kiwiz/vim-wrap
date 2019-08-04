@@ -12,18 +12,22 @@ let s:opp = {
 \ 'l': 'h',
 \}
 
-function Wincmd(arg)
+function Wincmd(arg, ...)
+  let l:wrap = get(a:, 1, v:true)
   if !has_key(s:opp, a:arg)
     return
   endif
+
   let l:n = winnr()
   exec 'wincmd' a:arg
-  if winnr() == l:n
+  if winnr() == l:n && l:wrap
     exec winnr('$') 'wincmd' s:opp[a:arg]
+    return v:true
   endif
+  return v:false
 endfunction
 
-nmap <C-w>j :call Wincmd('j')<cr>
-nmap <C-w>k :call Wincmd('k')<cr>
-nmap <C-w>h :call Wincmd('h')<cr>
-nmap <C-w>l :call Wincmd('l')<cr>
+nmap <silent> <C-w>j :call Wincmd('j')<cr>
+nmap <silent> <C-w>k :call Wincmd('k')<cr>
+nmap <silent> <C-w>h :call Wincmd('h')<cr>
+nmap <silent> <C-w>l :call Wincmd('l')<cr>
